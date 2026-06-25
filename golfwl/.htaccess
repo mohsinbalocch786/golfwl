@@ -1,0 +1,30 @@
+# ============================================================
+# GolfWL - Apache .htaccess
+# 
+# WAMPSERVER LOCAL SETUP:
+# If you get a 500 error, your httpd.conf has AllowOverride None.
+# Fix: Open WampServer → Apache → httpd.conf
+#      Find the <Directory "${SRVROOT}/www"> block
+#      Change: AllowOverride None
+#      To:     AllowOverride All
+#      Then restart Apache.
+# ============================================================
+
+Options -Indexes
+
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+</IfModule>
+
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(sql|log|env|bak|sh)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+    <FilesMatch "\.(sql|log|env|bak|sh)$">
+        Order deny,allow
+        Deny from all
+    </FilesMatch>
+</IfModule>

@@ -1,0 +1,8 @@
+[11-May-2026 10:39:09 UTC] PHP Warning:  mysqli_connect(): The server requested authentication method unknown to the client [caching_sha2_password] in /home/victor17/public_html/golfwl/config/db.php on line 7
+[11-May-2026 10:39:09 UTC] PHP Warning:  mysqli_connect(): (HY000/2054): The server requested authentication method unknown to the client in /home/victor17/public_html/golfwl/config/db.php on line 7
+[11-May-2026 10:42:55 UTC] PHP Warning:  mysqli_connect(): The server requested authentication method unknown to the client [caching_sha2_password] in /home/victor17/public_html/golfwl/config/db.php on line 7
+[11-May-2026 10:42:55 UTC] PHP Warning:  mysqli_connect(): (HY000/2054): The server requested authentication method unknown to the client in /home/victor17/public_html/golfwl/config/db.php on line 7
+[11-May-2026 11:28:54 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'victor17_golfwl'@'localhost' (using password: YES) in /home/victor17/public_html/golfwl/config/db.php on line 7
+[11-May-2026 11:28:56 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'victor17_golfwl'@'localhost' (using password: YES) in /home/victor17/public_html/golfwl/config/db.php on line 7
+[11-May-2026 11:29:48 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'victor17_golfwl'@'localhost' (using password: YES) in /home/victor17/public_html/golfwl/config/db.php on line 7
+[11-May-2026 11:29:51 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'victor17_golfwl'@'localhost' (using password: YES) in /home/victor17/public_html/golfwl/config/db.php on line 7

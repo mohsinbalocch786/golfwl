@@ -1,0 +1,1 @@
+[11-May-2026 11:29:59 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'victor17_golfwl'@'localhost' (using password: YES) in /home/victor17/public_html/golfwl/config/db.php on line 7
