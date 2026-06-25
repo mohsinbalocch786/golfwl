@@ -10,10 +10,7 @@ mysqli_query($conn, "
     ON DUPLICATE KEY UPDATE last_run='$_cronNow', status='running', message=''
 ");
 
-require_once ('/home/victor17/portal2.aitrans.co/bhavin/vendor/autoload.php');
-require_once('/home/victor17/public_html/api/twilio/Twilio/autoload.php');
-
-$config = include("../config/services.php");
+require_once __DIR__ . '/../vendor/autoload.php';
 
 
 $q = mysqli_query($conn, "SELECT * FROM settings LIMIT 1");
@@ -97,7 +94,7 @@ $media = trim($template['image']);
 
 if (!empty($media)) {
 
-    $path1 = "https://aitrans.co/golfwl/templates/smsimage/";
+    $path1 = getWebhookUrl() . "/golfwl/templates/smsimage/";
 
     $images = explode(',', $media);
 
@@ -213,7 +210,7 @@ $response = $sendgrid->send($mail);
 $smsParams = array(
     "from" => $twilio_from,
     "body" => strip_tags($content),
-    "statusCallback" => "https://aitrans.co/golfwl/tracking/sms-status.php"
+    "statusCallback" => getWebhookUrl() . "/golfwl/tracking/sms-status.php"
 );
 
 if (!empty($validMediaUrls)) {
