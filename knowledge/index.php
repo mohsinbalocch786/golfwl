@@ -960,10 +960,10 @@ Jane Smith,jane@example.com,8887776666,VIP</div>
         <p class="small">Add these two lines to your server's crontab (<code>crontab -e</code>). Replace the paths with your actual server paths.</p>
 
         <div class="kb-code"><span class="c"># Send email/SMS campaigns (runs every 5 minutes)</span>
-*/5 * * * * wget --no-check-certificate --quiet -O - https://aitrans.co/golfwl/cron/send_campaigns.php
+*/5 * * * * wget --no-check-certificate --quiet -O - <?php echo getWebhookUrl(); ?>/golfwl/cron/send_campaigns.php
 
 <span class="c"># Workflow automation engine (runs every 5 minutes)</span>
-*/5 * * * * wget --no-check-certificate --quiet -O - https://aitrans.co/golfwl/workflow/engine.php</div>
+*/5 * * * * wget --no-check-certificate --quiet -O - <?php echo getWebhookUrl(); ?>/golfwl/workflow/engine.php</div>
 
         <h5 class="mt-3">What send_campaigns.php does</h5>
         <ol class="kb-steps">
@@ -973,7 +973,7 @@ Jane Smith,jane@example.com,8887776666,VIP</div>
             <li><strong>Updates status</strong><p>Each queue row is marked sent/failed. Campaign status updates to in-progress/completed.</p></li>
         </ol>
 
-        <div class="kb-warn"><i class="fas fa-exclamation-triangle text-warning"></i> The cron uses absolute server paths for the Twilio SDK (<code>/home/victor17/public_html/api/twilio/</code>). If you move the project, update <code>cron/send_campaigns.php</code> lines 3–4.</div>
+        <div class="kb-warn"><i class="fas fa-exclamation-triangle text-warning"></i> SendGrid and Twilio SDKs are installed via Composer (<code>vendor/autoload.php</code>) and loaded with a path relative to <code>cron/send_campaigns.php</code>, so no per-server path changes are needed. Run <code>composer install</code> after deploying to a new server.</div>
     </div>
 </div>
 
@@ -993,24 +993,24 @@ Jane Smith,jane@example.com,8887776666,VIP</div>
         <h5>Twilio Inbound SMS (required for Live Chat)</h5>
         <p class="small">When a lead replies to an SMS, Twilio POSTs to your webhook URL. The system matches the reply's from-number to a lead and stores it for the live chat widget.</p>
         <div class="kb-code"><span class="c"># Twilio Console → Phone Numbers → Your Number → Messaging</span>
-Webhook URL: https://aitrans.co/golfwl/tracking/sms_inbound.php
+Webhook URL: <?php echo getWebhookUrl(); ?>/golfwl/tracking/sms_inbound.php
 Method: HTTP POST</div>
 
         <h5 class="mt-3">Twilio Delivery Status</h5>
         <div class="kb-code"><span class="c"># Twilio Console → Phone Numbers → Your Number → Messaging → Status Callback</span>
-Webhook URL: https://aitrans.co/golfwl/tracking/twilio_webhook.php
+Webhook URL: <?php echo getWebhookUrl(); ?>/golfwl/tracking/twilio_webhook.php
 Method: HTTP POST</div>
         <p class="small text-muted mt-1">Updates <code>campaign_queue</code> with delivery status (queued/sent/delivered/failed) per message SID.</p>
 
         <h5 class="mt-3">SendGrid Event Webhook</h5>
         <div class="kb-code"><span class="c"># SendGrid → Settings → Mail Settings → Event Webhook</span>
-URL: https://aitrans.co/golfwl/tracking/sendgrid_webhook.php
+URL: <?php echo getWebhookUrl(); ?>/golfwl/tracking/sendgrid_webhook.php
 Events: delivered, opened, clicked, bounced, unsubscribed, spam_report</div>
         <p class="small text-muted mt-1">Updates <code>campaign_queue</code> with email engagement stats (opens, clicks, bounces, etc.).</p>
 
         <h5 class="mt-3">Email Open Tracking</h5>
         <div class="kb-code"><span class="c"># Automatically embedded in email templates</span>
-Tracking pixel: https://aitrans.co/golfwl/tracking/open.php?id={queue_id}</div>
+Tracking pixel: <?php echo getWebhookUrl(); ?>/golfwl/tracking/open.php?id={queue_id}</div>
 
         <div class="kb-tip"><i class="fas fa-info-circle text-primary"></i> Webhooks must be publicly accessible URLs. They will not work on localhost. Use a service like ngrok for local testing.</div>
     </div>
@@ -1034,7 +1034,7 @@ Tracking pixel: https://aitrans.co/golfwl/tracking/open.php?id={queue_id}</div>
             ["Why is my campaign not sending?",
              "Check three things: (1) Is the cron job running? SSH in and check crontab -e. (2) Is the campaign status 'Pending' and the schedule_datetime in the past? (3) Are your SendGrid/Twilio API keys correct in Settings?"],
             ["Inbound SMS replies are not appearing in the chat window.",
-             "The Twilio webhook must be configured on your Twilio phone number. Go to Twilio Console → Phone Numbers → your number → Messaging → set the webhook to https://aitrans.co/golfwl/tracking/sms_inbound.php (HTTP POST). Also confirm the lead's phone number matches the 'From' phone of the incoming message."],
+             "The Twilio webhook must be configured on your Twilio phone number. Go to Twilio Console → Phone Numbers → your number → Messaging → set the webhook to " . getWebhookUrl() . "/golfwl/tracking/sms_inbound.php (HTTP POST). Also confirm the lead's phone number matches the 'From' phone of the incoming message."],
             ["Why can I not see my team member's leads/contacts?",
              "Make sure you are logged in as a Manager or have 'Can View Team' enabled on your user account. Also verify the team member's user account has manager_id set to your user ID."],
             ["I imported contacts but they didn't appear in my list.",

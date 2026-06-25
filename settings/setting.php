@@ -13,7 +13,6 @@
     include "../layout/header.php";
     include "../layout/sidebar.php";
     $msg = "";
-
     if(isset($_POST['from_name'])){
         verifyCsrf();
 
@@ -140,7 +139,7 @@
                 <label>Twilio Webhook URL</label><br>
 
                 <span class="text-muted">
-                    https://aitrans.co/golfwl/tracking/twilio_webhook.php
+                    <?php echo getWebhookUrl(); ?>/golfwl/tracking/twilio_webhook.php
                 </span>
 
                 <div class="hint mt-3 p-3 border rounded bg-light">
@@ -175,7 +174,7 @@
                             </ul>
 
                             <div class="alert alert-dark mt-2 mb-2">
-                                https://aitrans.co/golfwl/tracking/twilio_webhook.php
+                                <?php echo getWebhookUrl(); ?>/golfwl/tracking/twilio_webhook.php
                             </div>
                         </li>
 
@@ -189,7 +188,7 @@
                 <label>SendGrid Webhook URL</label><br>
 
                 <span class="text-muted">
-                    https://aitrans.co/golfwl/tracking/sendgrid_webhook.php
+                    <?php echo getWebhookUrl(); ?>/golfwl/tracking/sendgrid_webhook.php
                 </span>
 
                 <div class="hint mt-3 p-3 border rounded bg-light">
@@ -223,7 +222,7 @@
                         <li class="mt-2">
                             In HTTP POST URL enter:
                             <div class="alert alert-dark mt-2 mb-2">
-                                https://aitrans.co/golfwl/tracking/sendgrid_webhook.php
+                                <?php echo getWebhookUrl(); ?>/golfwl/tracking/sendgrid_webhook.php
                             </div>
                         </li>
 

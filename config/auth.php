@@ -191,3 +191,8 @@ function auditLog($conn, $action, $module, $recordId = 0, $detail = '') {
         VALUES ('$userId', '$userType', '$action', '$module', '$recordId', '$detail', '$ip', '$now')
     ");
 }
+function getWebhookUrl() {
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+    $host = $_SERVER['HTTP_HOST'];
+    return $protocol . $host;
+}
