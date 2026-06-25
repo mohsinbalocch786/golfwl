@@ -2,5 +2,10 @@
     "require": {
         "twilio/sdk": "^8.11",
         "sendgrid/sendgrid": "^8.1"
+    },
+    "config": {
+        "platform": {
+            "ext-gmp": "7.4.0"
+        }
     }
 }
